@@ -12,7 +12,26 @@ const getData = async(url = '') => {
         const newData = await response.json();
         return newData;
     } catch(error){
-        console.log('error: ', error);
+        console.log('GET error: ', error);
+        throw new Error(error);
+    }
+};
+
+const postData = async(url = '', data={}) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    try{
+        const newData = await response.json();
+        return newData;
+    }catch(error){
+        console.log('POST error: ', error);
         throw new Error(error);
     }
 };
