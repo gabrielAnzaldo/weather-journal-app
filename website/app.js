@@ -36,11 +36,11 @@ const postData = async(url = '', data={}) => {
 
 function updateUIDinamically(data) {
     const date = document.getElementById('date');
-    date.innerText = data.date;
+    date.innerHTML = data.date;
     const temp = document.getElementById('temp');
-    temp.innerText = data.temperature;
+    temp.innerHTML = data.temperature;
     const content = document.getElementById('content');
-    content.innerText = data.userResponse;
+    content.innerHTML = data.userResponse;
 }
 
 function  handleClickEvent() {
