@@ -16,10 +16,10 @@ app.get('/all', function (req, res) {
     console.log('doing a get: ', projectData);
     res.send(projectData);
 });
-const counter = 0;
+
 app.post('/add', function(req, res) {
-    projectData[counter] = req.body;
-    counter++;
+    console.log('updating data: ', req.body);
+    projectData = req.body;
 });
 
 const port = 3000;

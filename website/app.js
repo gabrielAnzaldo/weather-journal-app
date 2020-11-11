@@ -1,7 +1,5 @@
 const APY_KEY = '7ea45cdb1c4fee217fbf8316ab369fd0';
 const BASE_URL = 'api.openweathermap.org';
-// example
-// api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=
 
 // event listeners
 const generateButton = document.getElementById('generate');
@@ -36,11 +34,36 @@ const postData = async(url = '', data={}) => {
     }
 };
 
+function updateUIDinamically(data) {
+    const date = document.getElementById('date');
+    date.innerText = data.date;
+    const temp = document.getElementById('temp');
+    temp.innerText = data.temperature;
+    const content = document.getElementById('content');
+    content.innerText = data.userResponse;
+}
+
 function  handleClickEvent() {
-    console.log('click aca pa...');
-    const weatherData = getData(`https://${BASE_URL}/data/2.5/weather?q=London,uk&APPID=${APY_KEY}`);
+    const zipCode = document.getElementById('zip');
+    let d = new Date();
+    let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+    const userInput = document.getElementById('feelings').value;
+    const weatherData = getData(`https://${BASE_URL}/data/2.5/weather?zip=${zipCode.value},us&APPID=${APY_KEY}`);
     weatherData.then(function(data) {
-        console.log('response: ', data);
+        if(data) {
+            const dataObject = {
+                temperature: data.main.temp,
+                date: newDate,
+                userResponse: userInput,
+            };
+            postData('/add', dataObject);
+            const serverResponse = getData('/all');
+            serverResponse.then(function(data){
+                if(data) {
+                    updateUIDinamically(data);
+                }
+            });
+        }
     });
 }
 generateButton.addEventListener('click', handleClickEvent);
