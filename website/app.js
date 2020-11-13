@@ -41,6 +41,11 @@ function updateUIDinamically(data) {
     temp.innerHTML = data.temperature;
     const content = document.getElementById('content');
     content.innerHTML = data.userResponse;
+    // clean up
+    const userInput = document.getElementById('feelings');
+    userInput.value = '';
+    const zipCode = document.getElementById('zip');
+    zipCode.value = '';
 }
 
 function  handleClickEvent() {
